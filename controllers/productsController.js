@@ -2,12 +2,12 @@ const producto = require("../models/productsModel")
 
 //Ver la lista de productos
 exports.getProducts = async (req, res, next) => {
-    const productos = await producto.find();
+    const products = await producto.find();
     res.status(200).json({
         success: true,
         message: "En esta ruta usted va a poder ver todos los productos",
-        //cantidad:productos.length,
-        productos
+        //cantidad:products.length,
+        products
     })
 }
 
@@ -54,15 +54,15 @@ exports.updateProduct = async (req, res, next) => {
 
 //Eliminar un producto
 exports.deleteProduct = async (req, res, next) => {
-    const productos = await producto.findById(req.params.id);
-    if (!product) { //Verifico que el objeto no existe para finalizar el proceso
+    const products = await producto.findById(req.params.id);
+    if (!products) { //Verifico que el objeto no existe para finalizar el proceso
         return res.status(404).json({ //Si el objeto no existe, return terminar el metodo
             success: false,
             message: "No encontramos ese producto"
         })
     }
 
-    await product.remove(); //Elimino el producto
+    await products.remove(); //Elimino el producto
     res.status(200).json({
         success: true,
         message: "Producto eliminado correctamente",
