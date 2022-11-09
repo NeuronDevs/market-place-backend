@@ -19,13 +19,13 @@ const orderSchema = mongoose.Schema({
             required: true
         }
     }
-    // ,
-    // user:
-    // {
-    //     type: mongoose.Schema.Types.ObjectId,
-    //     required: true,
-    //     ref: "auth"
-    // }
+    ,
+    user:
+    {
+        type: mongoose.Schema.Types.ObjectId,
+        required: true,
+        ref: "auth"
+    }
     ,
     items: [{
         name: {
