@@ -19,10 +19,15 @@
   },
   "homepage": "https://github.com/NeuronDevs/market-place-backend#readme",
   "dependencies": {
+    "crypto": "^1.0.1",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
     "mongoose": "^6.7.0",
+<<<<<<< HEAD
     "node-fetch": "^3.2.10"
+=======
+    "validator": "^13.7.0"
+>>>>>>> c4f8033c61dba460f08874935e19ac0af388b5ef
   },
   "devDependencies": {
     "nodemon": "^2.0.20"
