@@ -1,6 +1,6 @@
 const User = require("../models/authModel")
 const ErrorHandler = require("../utils/errorHandler")
-const catchAsyncErrors = require("../middleware/catchAsyncErrors");
+const catchAsyncErrors = require("../middlewares/catchAsyncErrors");
 const crypto = require("crypto");
 const sendToken = require("../utils/jsonWebToken");
 
@@ -95,65 +95,65 @@ exports.updateProfile = catchAsyncErrors(async (req, res, next) => {
 });
 
 
-//TODO: Servicios controladores sobre usuarios por parte de los ADMIN
+//?Complete: Servicios controladores sobre usuarios por parte de los ADMIN
 
-//TODO: Ver todos los usuarios
-// exports.getAllUsers = catchAsyncErrors(async (req, res, next) => {
-//     const users = await User.find();
+//?Complete: Ver todos los usuarios
+exports.getAllUsers = catchAsyncErrors(async (req, res, next) => {
+    const users = await User.find();
 
-//     res.status(200).json({
-//         success: true,
-//         users
-//     })
-// })
+    res.status(200).json({
+        success: true,
+        users
+    })
+})
 
-//TODO: Ver el detalle de 1 usuario
-// exports.getUserDetails = catchAsyncErrors(async (req, res, next) => {
-//     const user = await User.findById(req.params.id);
+//?Complete: Ver el detalle de 1 usuario
+exports.getUserDetails = catchAsyncErrors(async (req, res, next) => {
+    const user = await User.findById(req.params.id);
 
-//     if (!user) {
-//         return next(new ErrorHandler(`No se ha encontrado ningun usuario con el id: ${req.params.id}`))
-//     }
+    if (!user) {
+        return next(new ErrorHandler(`No se ha encontrado ningun usuario con el id: ${req.params.id}`))
+    }
 
-//     res.status(200).json({
-//         success: true,
-//         user
-//     })
-// })
+    res.status(200).json({
+        success: true,
+        user
+    });
+})
 
-//TODO: Actualizar perfil de usuario (como administrador)
-// exports.updateUser = catchAsyncErrors(async (req, res, next) => {
-//     const nuevaData = {
-//         nombre: req.body.nombre,
-//         email: req.body.email,
-//         role: req.body.rol
-//     }
+//?Complete: Actualizar perfil de usuario (como administrador)
+exports.updateUser = catchAsyncErrors(async (req, res, next) => {
+    const newData = {
+        name: req.body.nombre,
+        email: req.body.email,
+        role: req.body.rol
+    }
 
-//     const user = await User.findByIdAndUpdate(req.params.id, nuevaData, {
-//         new: true,
-//         runValidators: true,
-//         useFindAndModify: false
-//     })
+    const user = await User.findByIdAndUpdate(req.params.id, newData, {
+        new: true,
+        runValidators: true,
+        useFindAndModify: false
+    });
 
-//     res.status(200).json({
-//         success: true,
-//         user
-//     })
-// })
+    res.status(200).json({
+        success: true,
+        user
+    });
+})
 
-//TODO: Eliminar usuario (admin)
-// exports.deleteUser = catchAsyncErrors(async (req, res, next) => {
-//     const user = await User.findById(req.params.id);
+//?Complete: Eliminar usuario(como administrador)
+exports.deleteUser = catchAsyncErrors(async (req, res, next) => {
+    const user = await User.findById(req.params.id);
 
-//     if (!user) {
-//         return next(new ErrorHandler(`Usuario con id: ${req.params.id}
-//         no se encuentra en nuestra base de datos`))
-//     }
+    if (!user) {
+        return next(new ErrorHandler(`Usuario con id: ${req.params.id}
+        no se encuentra en la base de datos`))
+    }
 
-//     await user.remove();
+    await user.remove();
 
-//     res.status(200).json({
-//         success: true,
-//         message: "Usuario eliminado correctamente"
-//     })
-// })
+    res.status(200).json({
+        success: true,
+        message: "Usuario eliminado correctamente"
+    })
+})
