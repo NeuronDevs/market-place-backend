@@ -30,6 +30,16 @@ exports.getProductById = async (req, res, next) => {
     })
 }
 
+//Crear un nuevo producto /api/admin_productos
+exports.newProduct=async(req,res,next)=>{
+    const product= await producto.create(req.body);
+
+    res.status(201).json({
+        success:true,
+        product
+    })
+}
+
 //Update un producto
 exports.updateProduct = async (req, res, next) => {
     let product = await producto.findById(req.params.id) // Variable de tipo modificable
