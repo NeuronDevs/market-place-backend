@@ -1,0 +1,3 @@
+class ErrorHandler extends Error{
+    
+}

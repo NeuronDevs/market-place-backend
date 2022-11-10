@@ -1,4 +1,5 @@
 const producto=require("../models/productsModel")
+//const fetch =(url)=>import('node-fetch').then(({default:fetch})=>fetch(url));//Para usar fecth aquí cuando los modulos se instalan a través de require y no de import
 
 //Ver la lista de productos
 exports.getProducts=async(req,res,next) => {
@@ -68,6 +69,7 @@ exports.deleteProduct=async(req,res,next) => {
         message:"Producto eliminado correctamente",
     })
 }
+
 
 
 
