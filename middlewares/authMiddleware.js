@@ -5,7 +5,7 @@ const catchAsyncErrors = require("./catchAsyncErrors")
 
 //Verificamos si estamos autenticados, (existencia y veracidad del token)
 exports.isAuthenticatedUser = catchAsyncErrors(async (req, res, next) => {
-    const { token } = req.cookies
+    const { token } = req.cookies;
 
     if (!token) {
         return next(new ErrorHandler("Debe iniciar sesion para acceder a este recurso", 401))

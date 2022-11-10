@@ -7,6 +7,7 @@ const sendToken = require("../utils/jsonWebToken");
 //? Completado: Registrar un nuevo usuario /api/usuario/registro
 exports.registerUser = catchAsyncErrors(async (req, res, next) => {
     const { name, email, password } = req.body;
+    console.log("name");
 
     const user = await User.create({
         name,
