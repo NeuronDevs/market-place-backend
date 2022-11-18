@@ -15,7 +15,8 @@ const productsScheme = mongoose.Schema({
     },
     description: {
         type: String,
-        required: [true, "Por favor registre una descripcion para el producto."]
+        required: [true, "Por favor registre una descripcion para el producto."],
+        trim: true
     },
     stock: {
         type: Number,
