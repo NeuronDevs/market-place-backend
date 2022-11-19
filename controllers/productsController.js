@@ -18,6 +18,21 @@ exports.getProducts = catchAsyncErrors( async (req, res, next) => {
     })
 })
 
+//obtener productos con existencias
+exports.getStock = catchAsyncErrors( async (req, res, next) => {
+    const products = await producto.find({stock:{$gt:0}});
+
+    if (!products) {
+        return next(new ErrorHandler("Producto no encontrado", 404))
+    }
+    
+    res.status(200).json({
+        success: true,
+        cantidad:products.length,
+        products
+    })
+})
+
 //Ver un producto por ID
 exports.getProductById = catchAsyncErrors( async (req, res, next) => { //catchAsyncErrors hace auditoria a los métodos
     const product = await producto.findById(req.params.id)

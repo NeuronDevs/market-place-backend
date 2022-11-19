@@ -36,18 +36,10 @@ const orderSchema = mongoose.Schema({
             type: Number,
             required: true
         },
-        images: [
-            {
-                public_id: {
+        images: {
                     type: String,
                     required: true
                 },
-                url: {
-                    type: String,
-                    required: true
-                }
-            }
-        ],
         price: {
             type: Number,
             required: true

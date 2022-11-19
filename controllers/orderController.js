@@ -7,7 +7,7 @@ const ordersModel = require("../models/ordersModel");
 //Crear una nueva orden
 exports.newOrder= catchAsyncErrors (async (req, res, next)=>{
     const {
-        Items,
+        items,
         orderInfo,
         itemsPrice,
         taxPrice,
@@ -17,7 +17,7 @@ exports.newOrder= catchAsyncErrors (async (req, res, next)=>{
     } = req.body;
 
     const order= await Order.create ({
-        Items,
+        items,
         orderInfo,
         itemsPrice,
         taxPrice,
@@ -27,6 +27,9 @@ exports.newOrder= catchAsyncErrors (async (req, res, next)=>{
         dateInfo: Date.now(),
         user: req.user._id
     })
+    items.forEach((x)=>{
+        updateStock(x.product,x.cant*-1);
+    });
 
     res.status(201).json({
         success:true,
@@ -103,7 +106,7 @@ exports.updateOrder= catchAsyncErrors(async(req, res, next)=>{
 //Para actualizar el stock segun las ventas efectivas
 async function updateStock(id, quantity){
     const product = await Product.findById(id);
-    product.stock= product.stock-quantity;
+    product.stock= product.stock+quantity;
     await product.save({validateBeforeSave: false})
 }
 
