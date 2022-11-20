@@ -1,45 +1,47 @@
-const producto=require("../models/productsModel");
+const producto = require("../models/productsModel");
 const ErrorHandler = require("../utils/errorHandler");
 const catchAsyncErrors = require("../middlewares/catchAsyncErrors");
+//const { now } = require("mongoose");
 //const fetch =(url)=>import('node-fetch').then(({default:fetch})=>fetch(url));//Para usar fecth aquí cuando los modulos se instalan a través de require y no de import
 
 //Ver la lista de productos
-exports.getProducts = catchAsyncErrors( async (req, res, next) => {
+exports.getProducts = catchAsyncErrors(async (req, res, next) => {
     const products = await producto.find();
 
     if (!products) {
         return next(new ErrorHandler("Producto no encontrado", 404))
     }
-    
+
     res.status(200).json({
         success: true,
-        cantidad:products.length,
+        cantidad: products.length,
         products
     })
 })
 
+
 //obtener productos con existencias
-exports.getStock = catchAsyncErrors( async (req, res, next) => {
-    const products = await producto.find({stock:{$gt:0}});
+exports.getStock = catchAsyncErrors(async (req, res, next) => {
+    const products = await producto.find({ stock: { $gt: 0 } });
 
     if (!products) {
         return next(new ErrorHandler("Producto no encontrado", 404))
     }
-    
+
     res.status(200).json({
         success: true,
-        cantidad:products.length,
+        cantidad: products.length,
         products
     })
 })
 
 //Ver un producto por ID
-exports.getProductById = catchAsyncErrors( async (req, res, next) => { //catchAsyncErrors hace auditoria a los métodos
+exports.getProductById = catchAsyncErrors(async (req, res, next) => { //catchAsyncErrors hace auditoria a los métodos
     const product = await producto.findById(req.params.id)
 
     if (!product) {
         return next(new ErrorHandler("Producto no encontrado", 404))
-    } 
+    }
 
     res.status(200).json({
         success: true,
@@ -49,11 +51,11 @@ exports.getProductById = catchAsyncErrors( async (req, res, next) => { //catchAs
 })
 
 //Crear un nuevo producto /api/admin_productos
-exports.newProduct= catchAsyncErrors( async(req,res,next)=>{
-    const product= await producto.create(req.body);
+exports.newProduct = catchAsyncErrors(async (req, res, next) => {
+    const product = await producto.create(req.body);
 
     res.status(201).json({
-        success:true,
+        success: true,
         product
     })
 })
@@ -64,7 +66,7 @@ exports.updateProduct = catchAsyncErrors(async (req, res, next) => {
 
     if (!product) {
         return next(new ErrorHandler("Producto no encontrado", 404))
-    } 
+    }
 
     //Si el objeto si existia, entonces si ejecuto la actulización
     product = await producto.findByIdAndUpdate(req.params.id, req.body, {
@@ -86,7 +88,7 @@ exports.deleteProduct = catchAsyncErrors(async (req, res, next) => {
     if (!products) { //Verifico que el objeto no existe para finalizar el proceso
         return next(new ErrorHandler("Producto no encontrado", 404))
     }
-    
+
 
     await products.remove(); //Elimino el producto
     res.status(200).json({
