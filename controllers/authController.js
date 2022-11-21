@@ -1,4 +1,4 @@
-const User = require("../models/authModel")
+const User = require("../models/AuthModel")
 const ErrorHandler = require("../utils/errorHandler")
 const catchAsyncErrors = require("../middlewares/catchAsyncErrors");
 const crypto = require("crypto");
